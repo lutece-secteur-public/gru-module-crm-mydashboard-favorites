@@ -1,23 +1,12 @@
-<div class="panel panel-mcp" id="favorites">
-    <div class="panel-heading hidden">
-        <a name="myfavorites"></a>
-        <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseMyFavorites" aria-expanded="true" aria-controls="collapseMyFavorites">
-                #i18n{module.crm.mydashboardfavorites.component.favorites.description}
-                </a>
-            </h4>
-        </div>
-    <div class="panel-body">
-        <div class="row">
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myFavorites">
-                #i18n{module.crm.mydashboardfavorites.component.favorites.modify}
-             </button>
-        </div>
-            <#list favorites_checked_list as favorite>
-                <a class="btn btn-info btn-demande" href="${favorite.urlResource}">${favorite.label}</a>
-            </#list>
-        </div>
-    </div>
+<div class="portlet portlet-demandes">
+    <h2>#i18n{module.crm.mydashboardfavorites.component.favorites.description} <i title="I can tell you the license plate numbers of all six cars outside. I can tell you that our waitress is left-handed and the guy sitting up at the counter weighs two hundred fifteen pounds" data-placement="right" data-toggle="tooltip" aria-hidden="true" class="fa fa-question-circle"> </i>
+        </h2>
+    <p>
+        <a data-target="#myFavorites"" data-toggle="modal" href="#" id="myfav" class="btn btn-link">#i18n{module.crm.mydashboardfavorites.component.favorites.modify}</a>
+    </p>
+        <#list favorites_checked_list as favorite>
+            <a class="btn btn-info btn-demande" target="_self" href="${favorite.urlResource}">${favorite.label}</a>
+        </#list>
 </div>
 
 <#function isFavoriteChecked favorites_checked_list favorite>
@@ -31,29 +20,31 @@
     <#return false>
 </#function>
 
-<div id="myFavorites" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">#i18n{module.crm.mydashboardfavorites.add.favorites}</h4>
-                </div>
-            <div class="modal-body" id="myFavoritesModalBody">
-                <form method="post" action="jsp/site/Portal.jsp" class="form">
-                    <input type="hidden" name="page" value="favorites" />
-                    <#if favorites_list?has_content>
-                        <#list favorites_list as favorite>
-                    <div class="checkbox">
-                        <input id="favorite_${favorite.code}" type="checkbox" value="${favorite.code}" name="favorites" <#if isFavoriteChecked( favorites_checked_list,favorite ) >checked="checked" </#if>/>
-                        <label for="favorite_${favorite.code}">${favorite.name}</label>
-                        </div>
-                        </#list>
-                    </#if>
-                    <button type="submit" class="btn btn-primary btn-sm" name="action_modify_favorites">#i18n{module.crm.mydashboardfavorites.modify.favorites}</button>
-                    </form>
-                </div>
+<div class="modal fade" id="myFavorites" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="myModalLabel">#i18n{module.crm.mydashboardfavorites.add.favorites}</h3>
+      </div>
+      <div class="modal-body">
+        <form class="form" action="jsp/site/Portal.jsp" >
+            <input type="hidden" name="page" value="favorites" />
+            <#if favorites_list?has_content>
+               <#list favorites_list as favorite>
+                    <p>
+                      <input type="checkbox" value="${favorite.code}" name="favorites" id="favorite_${favorite.code}" <#if isFavoriteChecked( favorites_checked_list,favorite ) >checked="checked" </#if>/>
+                      <label for="favorite_${favorite.code}">${favorite.name}</label>
+                    </p>
+                </#list>
+            </#if>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" name="action_modify_favorites">#i18n{module.crm.mydashboardfavorites.validate.favorites}</button>
+            </div>
+          </form>
         </div>
+        
     </div>
+  </div>
 </div>
 
 
