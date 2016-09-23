@@ -33,9 +33,7 @@
  */
 package fr.paris.lutece.plugins.crm.modules.mydashboardfavorites.web;
 
-import fr.paris.lutece.plugins.crm.business.user.CRMUser;
 import fr.paris.lutece.plugins.crm.modules.mydashboardfavorites.service.FavoritesSubscriptionProviderService;
-import fr.paris.lutece.plugins.crm.service.user.CRMUserService;
 import fr.paris.lutece.plugins.subscribe.business.Subscription;
 import fr.paris.lutece.plugins.subscribe.business.SubscriptionFilter;
 import fr.paris.lutece.plugins.subscribe.service.SubscriptionService;
@@ -69,9 +67,9 @@ public class MyDashBoardFavoritesXPage extends MVCApplication
         
         //First remove all the favorites subscriptions for the register Lutece user
         LuteceUser user = SecurityService.getInstance().getRegisteredUser( request );
-        CRMUser crmUser = CRMUserService.getService(  ).findByUserGuid( user.getName(  ) );
+
         SubscriptionFilter sFilter = new SubscriptionFilter(  );
-        sFilter.setIdSubscriber( crmUser.getUserGuid(  ) );
+        sFilter.setIdSubscriber( user.getName(  ) );
         sFilter.setSubscriptionProvider( FavoritesSubscriptionProviderService.getInstance(  ).getProviderName(  ) );
         List<Subscription> listSubscriptionFavorites = SubscriptionService.getInstance(  ).findByFilter( sFilter ); 
         for (Subscription sub : listSubscriptionFavorites)
@@ -88,7 +86,7 @@ public class MyDashBoardFavoritesXPage extends MVCApplication
                 sub.setIdSubscribedResource( strFavoriteId );
                 sub.setSubscriptionProvider( FavoritesSubscriptionProviderService.getInstance(  ).getProviderName(  ) );
                 sub.setSubscriptionKey( SUBSCRIPTION_KEY );
-                SubscriptionService.getInstance().createSubscription( sub, user );
+                SubscriptionService.getInstance(  ).createSubscription( sub, user );
             }
         }
         

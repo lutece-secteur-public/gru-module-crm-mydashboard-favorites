@@ -39,21 +39,18 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import fr.paris.lutece.plugins.crm.business.user.CRMUser;
 import fr.paris.lutece.plugins.crm.modules.mydashboardfavorites.service.FavoritesSubscriptionProviderService;
 import fr.paris.lutece.plugins.crm.service.demand.DemandTypeService;
-import fr.paris.lutece.plugins.crm.service.user.CRMUserAttributesService;
-import fr.paris.lutece.plugins.crm.service.user.CRMUserService;
 import fr.paris.lutece.plugins.mydashboard.service.MyDashboardComponent;
 import fr.paris.lutece.portal.service.i18n.I18nService;
-import fr.paris.lutece.portal.service.security.LuteceUser;
-import fr.paris.lutece.portal.service.security.SecurityService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.web.l10n.LocaleService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 import fr.paris.lutece.plugins.subscribe.business.SubscriptionFilter;
 import fr.paris.lutece.plugins.subscribe.business.Subscription;
 import fr.paris.lutece.plugins.subscribe.service.SubscriptionService;
+import fr.paris.lutece.portal.service.security.LuteceUser;
+import fr.paris.lutece.portal.service.security.SecurityService;
 import java.util.ArrayList;
 
 public class MyDashboardFavoritesComponent extends MyDashboardComponent
@@ -71,13 +68,12 @@ public class MyDashboardFavoritesComponent extends MyDashboardComponent
     @Override
     public String getDashboardData( HttpServletRequest request )  
     {
-        LuteceUser user = SecurityService.getInstance(  ).getRegisteredUser( request );
-        CRMUser crmUser = CRMUserService.getService(  ).findByUserGuid( user.getName(  ) );
         Map<String, Object> model = new HashMap<String, Object>(  );
         
+        LuteceUser user = SecurityService.getInstance().getRegisteredUser( request );
         //research by filter on user guid and for favorites provider
         SubscriptionFilter sFilter = new SubscriptionFilter(  );
-        sFilter.setIdSubscriber( crmUser.getUserGuid(  ) );
+        sFilter.setIdSubscriber( user.getName(  ) );
         sFilter.setSubscriptionProvider( FavoritesSubscriptionProviderService.getInstance(  ).getProviderName(  ) );
         List<Subscription> listFavorites = SubscriptionService.getInstance().findByFilter( sFilter );  
         //get demandTypes about those subscriptions
