@@ -20,12 +20,6 @@
             <url>http://dev.lutece.paris.fr/maven_repository</url>
             <layout>default</layout>
         </repository>
-		<repository>
-            <id>lutece</id>
-            <name>luteceRepository</name>
-            <url>http://dev.lutece.paris.fr/snapshot_repository</url>
-            <layout>default</layout>
-        </repository>
     </repositories>	
 	
     <dependencies>
@@ -55,12 +49,12 @@
         </dependency>
     </dependencies>
 
-    <!--<properties>
-        <componentName>crm-mydashboard-favorites-gru</componentName>
-        <jiraProjectName>CRMMYDASHBFAV</jiraProjectName>
-        <jiraComponentId>15804</jiraComponentId>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>-->
+	<properties>
+		<componentName>gru-module-crm-mydashboard-favorites</componentName>
+		<jiraProjectName>GRUM </jiraProjectName>
+		<jiraComponentId></jiraComponentId>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
     <scm>
         <connection>scm:git:https://github.com/lutece-secteur-public/gru-module-crm-mydashboard-favorites.git</connection>
