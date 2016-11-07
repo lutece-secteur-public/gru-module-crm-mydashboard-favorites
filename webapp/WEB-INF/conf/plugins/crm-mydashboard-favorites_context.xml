@@ -7,4 +7,5 @@
                  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
     
     <bean id="crm-mydashboard-favorites.mydashboardFavoritesComponent" class="fr.paris.lutece.plugins.crm.modules.mydashboardfavorites.web.MyDashboardFavoritesComponent" />
+    <bean id="crm-mydashboard-favorites.listenerFavoritesRemoval" class="fr.paris.lutece.plugins.crm.modules.mydashboardfavorites.listener.ListenerFavoritesRemoval" />
 </beans>
