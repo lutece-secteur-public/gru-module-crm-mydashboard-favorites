@@ -4,14 +4,14 @@
     <p>
         <a data-target="#myFavorites"" data-toggle="modal" href="#" id="myfav" class="btn btn-link">#i18n{module.crm.mydashboardfavorites.component.favorites.modify}</a>
     </p>
-        <#list favorites_checked_list as favorite>
+        <#list favorites_checked_list?sort_by("label") as favorite>
             <a class="btn btn-info btn-demande" target="_self" href="${favorite.urlResource}">${favorite.label}</a>
         </#list>
 </div>
 
 <#function isFavoriteChecked favorites_checked_list favorite>
     <#if favorites_checked_list?? && favorites_checked_list?has_content>
-        <#list favorites_checked_list?sort as favorite_checked>
+        <#list favorites_checked_list as favorite_checked>
             <#if favorite_checked.idDemandType?string = favorite.code>
                 <#return true>
             </#if>
@@ -30,7 +30,7 @@
         <form class="form" action="jsp/site/Portal.jsp" >
             <input type="hidden" name="page" value="favorites" />
             <#if favorites_list?has_content>
-               <#list favorites_list?sort as favorite>
+               <#list favorites_list?sort_by("name") as favorite>
                     <p>
                       <input type="checkbox" value="${favorite.code}" name="favorites" id="favorite_${favorite.code}" <#if isFavoriteChecked( favorites_checked_list,favorite ) >checked="checked" </#if>/>
                       <label for="favorite_${favorite.code}">${favorite.name}</label>
